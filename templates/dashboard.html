@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ResumeForge</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ResumeForge</div>
+            <nav id="user-nav">
+                <a href="/dashboard" class="btn btn-outline" style="margin-right: 10px;">Dashboard</a>
+                <button id="logout-btn" class="btn btn-primary">Logout</button>
+            </nav>
+        </header>
+
+        <main class="dashboard-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-top: 3rem;">
+            <!-- Left Sidebar: Actions & History -->
+            <aside class="glass" style="padding: 2rem;">
+                <h2 style="margin-bottom: 2rem;">Your Resumes</h2>
+                <div id="upload-section" style="margin-bottom: 2rem;">
+                    <label for="resume-upload" class="btn btn-primary" style="display: block; text-align: center;">
+                        <i class="fas fa-upload"></i> Upload Resume
+                    </label>
+                    <input type="file" id="resume-upload" style="display: none;" accept=".pdf,.docx">
+                </div>
+                <div id="resume-list" style="max-height: 400px; overflow-y: auto;">
+                    <!-- Resumes will be loaded here -->
+                    <p style="color: var(--text-gray);">No resumes uploaded yet.</p>
+                </div>
+            </aside>
+
+            <!-- Right Content: Analysis & Builder -->
+            <section id="main-content" class="glass" style="padding: 2rem;">
+                <div id="empty-state">
+                    <h3>Select a resume to view analysis or upload a new one.</h3>
+                    <p style="color: var(--text-gray); margin-top: 1rem;">Our AI will help you optimize your resume for your dream job.</p>
+                </div>
+                <div id="analysis-view" style="display: none;">
+                    <h2 id="resume-title">Resume Analysis</h2>
+                    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0;">
+                        <div class="glass" style="padding: 1.5rem; text-align: center;">
+                            <span style="font-size: 0.8rem; color: var(--text-gray);">ATS SCORE</span>
+                            <div id="ats-score" style="font-size: 2rem; font-weight: 800; color: var(--accent);">--</div>
+                        </div>
+                    </div>
+                    <div id="skills-section" style="margin-bottom: 2rem;">
+                        <h3>Detected Skills</h3>
+                        <div id="skills-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;"></div>
+                    </div>
+                    <div id="missing-section">
+                        <h3>Missing Keywords</h3>
+                        <div id="missing-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; color: #ef4444;"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Dashboard specific logic
+        async function loadDashboard() {
+            const list = await resumes.list();
+            const listContainer = document.getElementById('resume-list');
+            if (list.length > 0) {
+                listContainer.innerHTML = list.map(r => `
+                    <div class="glass resume-item" style="padding: 1rem; margin-bottom: 0.5rem; cursor: pointer;" onclick="showAnalysis('${r._id}')">
+                        <strong>${r.filename}</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-gray);">Uploaded on ${new Date().toLocaleDateString()}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        async function showAnalysis(id) {
+            document.getElementById('empty-state').style.display = 'none';
+            document.getElementById('analysis-view').style.display = 'block';
+            const analysis = await resumes.analyze(id);
+            document.getElementById('ats-score').innerText = analysis.ats_score + '%';
+            document.getElementById('skills-tags').innerHTML = analysis.skills.map(s => `<span class="badge">${s}</span>`).join('');
+            document.getElementById('missing-tags').innerHTML = analysis.missing_keywords.map(s => `<span class="badge" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444;">${s}</span>`).join('');
+        }
+
+        document.getElementById('resume-upload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                await resumes.upload(file);
+                loadDashboard();
+            }
+        });
+
+        loadDashboard();
+    </script>
+</body>
+</html>

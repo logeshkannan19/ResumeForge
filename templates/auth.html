@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up - ResumeForge</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    <div class="glass" style="width: 400px; padding: 2.5rem; text-align: center;">
+        <h2 style="margin-bottom: 2rem;">Welcome Back</h2>
+        <form id="auth-form">
+            <div id="register-fields" style="display: none;">
+                <input type="text" id="full-name" placeholder="Full Name" style="width: 100%; border-radius: 8px; padding: 12px; margin-bottom: 1rem; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white;">
+            </div>
+            <input type="email" id="email" placeholder="Email Address" required style="width: 100%; border-radius: 8px; padding: 12px; margin-bottom: 1rem; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white;">
+            <input type="password" id="password" placeholder="Password" required style="width: 100%; border-radius: 8px; padding: 12px; margin-bottom: 1.5rem; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white;">
+            
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Login</button>
+            <p style="margin-top: 1.5rem; color: var(--text-gray); font-size: 0.9rem;">
+                Don't have an account? <a href="#" id="toggle-auth" style="color: var(--primary); text-decoration: none;">Sign Up</a>
+            </p>
+        </form>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        let isRegister = false;
+        const form = document.getElementById('auth-form');
+        const registerFields = document.getElementById('register-fields');
+        const toggleBtn = document.getElementById('toggle-auth');
+        const submitBtn = document.getElementById('submit-btn');
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isRegister = !isRegister;
+            registerFields.style.display = isRegister ? 'block' : 'none';
+            submitBtn.innerText = isRegister ? 'Create Account' : 'Login';
+            toggleBtn.innerText = isRegister ? 'Login' : 'Sign Up';
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (isRegister) {
+                const fullName = document.getElementById('full-name').value;
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, full_name: fullName })
+                });
+                if (response.ok) {
+                    await auth.login(email, password);
+                } else {
+                    const data = await response.json();
+                    alert(data.detail || "Registration failed");
+                }
+            } else {
+                const data = await auth.login(email, password);
+                if (data.detail) alert(data.detail);
+            }
+        });
+    </script>
+</body>
+</html>

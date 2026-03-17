@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeForge – Forge a resume that gets you hired.</title>
+    <meta name="description" content="AI-powered resume analyzer and builder to optimize your career path.">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ResumeForge</div>
+            <nav id="guest-nav">
+                <a href="#features" class="btn btn-outline" style="margin-right: 10px;">Features</a>
+                <a href="/login" class="btn btn-primary">Login / Sign Up</a>
+            </nav>
+            <nav id="user-nav" style="display: none;">
+                <a href="/dashboard" class="btn btn-outline" style="margin-right: 10px;">Dashboard</a>
+                <button id="logout-btn" class="btn btn-primary">Logout</button>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Forge a resume that <br><span>gets you hired.</span></h1>
+            <p>Optimize your resume for ATS, identify missing keywords, and create a professional builder-driven resume in minutes.</p>
+            <div class="hero-actions">
+                <a href="/login" class="btn btn-primary">Get Started for Free</a>
+                <a href="#demo" class="btn btn-outline" style="margin-left: 10px;">Watch Demo</a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="feature-card glass">
+                <i class="fas fa-robot"></i>
+                <h3>AI Analysis</h3>
+                <p>Advanced OCR and GPT-powered analysis of your resume skills and experiences.</p>
+            </div>
+            <div class="feature-card glass">
+                <i class="fas fa-bullseye"></i>
+                <h3>ATS Match</h3>
+                <p>See exactly how well your resume matches any job description instantly.</p>
+            </div>
+            <div class="feature-card glass">
+                <i class="fas fa-magic"></i>
+                <h3>AI Rewriting</h3>
+                <p>Improve clarity and impact of your bullet points with professional AI suggestions.</p>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-card glass">
+                    <h3>Free</h3>
+                    <p style="font-size: 2rem; margin: 1rem 0;">$0 <span style="font-size: 1rem; color: var(--text-gray);">/mo</span></p>
+                    <ul style="list-style: none; text-align: left; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> 3 AI Analyses</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> PDF Resume Export</li>
+                    </ul>
+                    <a href="/login" class="btn btn-outline">Start for Free</a>
+                </div>
+                <div class="price-card glass pro">
+                    <div class="badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <p style="font-size: 2rem; margin: 1rem 0;">$12 <span style="font-size: 1rem; color: var(--text-gray);">/mo</span></p>
+                    <ul style="list-style: none; text-align: left; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> Unlimited Analyses</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> AI Job Matching</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> Premium Templates</li>
+                    </ul>
+                    <a href="/login" class="btn btn-primary">Upgrade Now</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
