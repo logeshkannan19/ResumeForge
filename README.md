@@ -1,61 +1,90 @@
 # ⚒️ ResumeForge
 
-### Stop shouting into the void. Build a resume that actually gets read.
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square&logo=python)](https://python.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-We've all been there: spending hours tweaking a bullet point, only to have our application swallowed by a "black box" Applicant Tracking System (ATS). We built **ResumeForge** to give you the keys to that box.
+> [!NOTE]
+> **Live Demo:** [resumeforge-landing.vercel.app](https://resumeforge-landing.vercel.app)
 
-ResumeForge isn't just another resume builder. It’s an AI-powered partner that looks at your experience through the eyes of a recruiter. It spots the gaps, suggests the impact verbs you’re missing, and helps you align perfectly with the jobs you actually want.
+Stop shouting into the void. Build a resume that actually gets read.
 
----
+ResumeForge is an AI-powered resume builder that analyzes your experience through the eyes of a recruiter. It spots gaps, suggests impact verbs, and helps you align perfectly with jobs.
 
-## ✨ Features that actually matter
+## ✨ Features
 
-- **ATS-Eye View**: Our AI analyzes your resume exactly like a modern hiring system does. Get a score and a list of "must-have" keywords you're missing.
-- **The Matchmaker**: Paste a job description and literally watch the gaps disappear as we help you tailor your content.
-- **Craft, Don't Just Type**: Use our built-in builder to generate a clean, professional PDF that doesn't look like a template from 2005.
-- **Privacy by Design**: Your data is yours. We use secure JWT auth and industry-standard hashing to keep your career history safe.
+| Feature | Description |
+|---------|-------------|
+| 🤖 **AI ATS Analysis** | Score your resume like modern hiring systems do |
+| 🎯 **Job Matching** | Paste job description and tailor your content |
+| 📝 **Smart Builder** | Generate clean, professional PDFs |
+| 🔒 **Privacy First** | JWT auth + secure password hashing |
 
-## 🛠️ The Tech Under the Hood
+## 🛠 Tech Stack
 
-We kept it lean and fast:
-- **FastAPI**: For a snappy, asynchronous backend.
-- **Motor & MongoDB**: Because your resume data is document-based, and we love the flexibility of a NoSQL schema.
-- **OpenAI GPT-3.5**: The brains. We’ve tuned the prompts to focus on *action* and *impact*, not just generic fluff.
-- **ReportLab**: Precise PDF generation because details matter.
-- **Vanilla CSS (Glassmorphism)**: A modern, premium UI that feels fast and looks stunning.
+| Component | Technology |
+|----------|------------|
+| **Backend** | FastAPI |
+| **Database** | MongoDB |
+| **AI** | OpenAI GPT-3.5/4 |
+| **PDF** | ReportLab |
+| **Frontend** | HTML/CSS + Vanilla JS |
 
-## 🚀 Get Running in 5 Minutes
+## 🚀 Quick Start
 
-1. **Clone & Enter**:
-   ```bash
-   git clone https://github.com/logeshkannan19/ResumeForge.git
-   cd resumeforge
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/logeshkannan19/ResumeForge.git
+cd ResumeForge
 
-2. **Fuel Up**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Install dependencies
+pip install -r requirements.txt
 
-3. **Secrets & Keys**:
-   Copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
+# Configure environment
+cp .env.example .env
+# Add your OPENAI_API_KEY
 
-4. **Seed the Forge (Developer Utility)**:
-   We built a script to help you see the dashboard immediately without uploading anything:
-   ```bash
-   python -m scripts.seed_db
-   ```
+# Seed database (optional)
+python -m scripts.seed_db
 
-5. **Let's Go**:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
-   Now head over to `http://localhost:8000`.
+# Start server
+uvicorn app.main:app --reload
+```
 
----
+Visit `http://localhost:8000`
 
-## 🤝 Join the Forge
+## 📁 Project Structure
 
-We built this for the community. If you found a bug or have an idea for a feature that would make job hunting less of a nightmare, please [open an issue](https://github.com/logeshkannan19/ResumeForge/issues). 
+```
+ResumeForge/
+├── app/
+│   ├── main.py          # FastAPI app
+│   ├── auth/            # Authentication
+│   ├── models/          # Database models
+│   ├── routes/          # API routes
+│   ├── services/        # Business logic
+│   └── utils/           # Utilities
+├── scripts/
+│   └── seed_db.py       # Database seeder
+├── templates/            # HTML templates
+├── static/              # CSS/JS assets
+├── uploads/             # File uploads
+└── requirements.txt
+```
 
-Built with ❤️ for every job seeker out there.
+## 🔑 Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `OPENAI_API_KEY` | OpenAI API key for GPT |
+| `MONGODB_URI` | MongoDB connection string |
+| `JWT_SECRET` | JWT token secret |
+| `PORT` | Server port |
+
+## 🤝 Contributing
+
+Contributions welcome! Please [open an issue](https://github.com/logeshkannan19/ResumeForge/issues) for bugs or features.
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
